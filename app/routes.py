@@ -42,7 +42,7 @@ def logout():
     return redirect(url_for('welcome'))
 
 
-@app.route('/settings')
+@app.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
     return render_template('settings.html', title='Settings')
