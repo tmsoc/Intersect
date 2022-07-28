@@ -42,3 +42,39 @@ def logout():
     return redirect(url_for('welcome'))
 
 
+@app.route('/settings')
+@login_required
+def settings():
+    return render_template('settings.html', title='Settings')
+
+
+@app.route('/remote')
+@login_required
+def remote_home():
+    # rooms = []
+    rooms = [
+        {'id': 1, 'name': 'Living Room', 'url_path': 'living_room'},
+        {'id': 2, 'name': 'Office', 'url_path': 'office'},
+        {'id': 3, 'name': 'Bedroom', 'url_path': 'bedroom'}
+    ]
+    if len(rooms) > 0:
+        return redirect(url_for('remote', room=rooms[0]['url_path']))
+    return render_template('remote_default.html', title='Remote')
+
+
+@app.route('/remote/<room>')
+@login_required
+def remote(room):
+    rooms = [
+        {'id': 1, 'name': 'Living Room', 'url_path': 'living_room'},
+        {'id': 2, 'name': 'Office', 'url_path': 'office'},
+        {'id': 3, 'name': 'Bead Room', 'url_path': 'bead_room'}
+    ]
+    current_room = next((r for r in rooms if r['url_path'] == room), None)
+    devices = [
+        {'id': 1, 'name': 'roku', 'ip': '192.168.1.1', 'type': "roku"},
+        {'id': 2, 'name': 'tv', 'ip': '192.168.1.1', 'type': "tv"},
+        {'id': 3, 'name': 'receiver', 'ip': '192.168.1.1', 'type': "receiver"}
+    ]
+    return render_template('remote.html', room=current_room, rooms=rooms, devices=devices)
+    

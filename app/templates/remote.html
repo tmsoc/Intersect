@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2 style="padding-left: 14px;">{{ room.name }}</h2>
+    <ul class="nav nav-tabs">
+        <!-- dropdown for room select -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Rooms</a>
+            <ul class="dropdown-menu">
+                {% for room in rooms %}
+                <li>
+                    <a class="dropdown-item" href="{{ url_for('remote', room=room.url_path) }}">{{ room.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <!-- tabs for each device -->
+        {% for device in devices %}
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#{{ device.type }}_tab">{{ device.name }}</a>
+        </li>
+        {% endfor %}
+        <!-- <li class="nav-item">
+            <a href="#roku_tab" class="nav-link active" data-bs-toggle="tab">Link 1</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tv_tab" class="nav-link" data-bs-toggle="tab">Link 2</a>
+        </li>
+        <li class="nav-item">
+            <a href="#receiver_tab" class="nav-link" data-bs-toggle="tab">Link 3</a>
+        </li> -->
+    </ul>
+    <!-- tab content -->
+    <div class="tab-content">        
+        {% for device in devices %}
+            {% if device.type == 'roku' %}
+                {% include '_roku_remote.html' %}
+            {% elif device.type == 'tv' %}
+                {% include '_tv_remote.html' %}
+            {% elif device.type == 'receiver' %}
+                {% include '_receiver_remote.html' %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+    
+{% endblock %}
