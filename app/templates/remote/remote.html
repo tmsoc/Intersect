@@ -11,7 +11,7 @@
             <ul class="dropdown-menu">
                 {% for room in rooms %}
                 <li>
-                    <a class="dropdown-item" href="{{ url_for('remote', room=room.url_path) }}">{{ room.name }}</a>
+                    <a class="dropdown-item" href="{{ url_for('remote.remote', room=room.url_path) }}">{{ room.name }}</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -36,11 +36,11 @@
     <div class="tab-content">        
         {% for device in devices %}
             {% if device.type == 'roku' %}
-                {% include '_roku_remote.html' %}
+                {% include 'remote/_roku_remote.html' %}
             {% elif device.type == 'tv' %}
-                {% include '_tv_remote.html' %}
+                {% include 'remote/_tv_remote.html' %}
             {% elif device.type == 'receiver' %}
-                {% include '_receiver_remote.html' %}
+                {% include 'remote/_receiver_remote.html' %}
             {% endif %}
         {% endfor %}
     </div>
