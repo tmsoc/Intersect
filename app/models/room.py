@@ -17,5 +17,5 @@ class Room(db.Model):
         self.url_path = self.name.lower().replace(' ', '_')
 
     def __repr__(self) -> str:
-        return f'id: {self.id}\nname: {self.name}\nurl_path: {self.url_path}'
+        return f'<ID: {self.id} name: {self.name} url path: {self.url_path}>'
 

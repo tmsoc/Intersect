@@ -8,7 +8,7 @@ from app.main import bp
 def index():
     if current_user.is_anonymous:
         return redirect(url_for('main.welcome'))
-    return render_template('main/index.html', title="Home")
+    return render_template('main/index.html', title="Dashboard")
 
 
 @bp.route('/welcome')

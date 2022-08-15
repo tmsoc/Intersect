@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container">
-    <h2 style="padding-left: 14px;">{{ room.name }}</h2>
+    <h2 id="current_room" style="padding-left: 14px;">{{ room.name }}</h2>
     <ul class="nav nav-tabs">
         <!-- dropdown for room select -->
         <li class="nav-item dropdown">
@@ -26,17 +26,17 @@
     <!-- tab content -->
     <div class="tab-content">        
         {% for device in devices %}
-            {% if device.type == 'roku' %}
+            {% if device.dev_type == 'roku' %}
                 {% include 'remote/_roku_remote.html' %}
-            {% elif device.type == 'tv' %}
+            {% elif device.dev_type == 'tv' %}
                 {% include 'remote/_tv_remote.html' %}
-            {% elif device.type == 'receiver' %}
+            {% elif device.dev_type == 'receiver' %}
                 {% include 'remote/_receiver_remote.html' %}
             {% endif %}
         {% endfor %}
     </div>
 </div>
-
-<script src="{{ url_for('static', filename='remote.js') }}"></script>
+    
+<script type=text/javascript src="{{ url_for('static', filename='remote.js') }}"></script>
 
 {% endblock %}
