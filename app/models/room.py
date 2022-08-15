@@ -9,6 +9,7 @@ class Room(db.Model):
 
     # Attached Devices
     rokus = db.relationship('Remote_Roku', backref='room', lazy=True)
+    ir_dev = db.relationship('Remote_Ir', backref='room', lazy=True)
     
     
     def __init__(self, **kwargs):
@@ -19,3 +20,16 @@ class Room(db.Model):
     def __repr__(self) -> str:
         return f'<ID: {self.id} name: {self.name} url path: {self.url_path}>'
 
+    def add_roku(self, roku):
+        self.rokus.append(roku)
+
+    def remove_roku(self, roku):
+        if roku in self.rokus:
+            self.rokus.remove(roku)
+
+    def add_ir_dev(self, ir_dev):
+        self.ir_dev.append(ir_dev)
+
+    def remove_ir_dev(self, ir_dev):
+        if ir_dev in self.ir_dev:
+            self.ir_dev.remove(ir_dev)

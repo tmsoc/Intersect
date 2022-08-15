@@ -26,7 +26,10 @@ class Remote_Roku(db.Model, Roku):
 
 
     def __repr__(self) -> str:
-        return f"<ID: {self.id} IP: {self.ip} Name: {self.name} Room ID: {self.room.id}>"
+        if self.room_id == None:
+            return f"<ID: {self.id} IP: {self.ip} Name: {self.name} Room ID: None>"
+        else:
+            return f"<ID: {self.id} IP: {self.ip} Name: {self.name} Room ID: {self.room.id}>"
 
 
     def query_device_name(self):

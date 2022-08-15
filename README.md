@@ -1,1 +1,1 @@
-# Intersecty
+# Intersect

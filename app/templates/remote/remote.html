@@ -19,7 +19,7 @@
         <!-- tab links for each device -->
         {% for device in devices %}
         <li class="nav-item">
-            <a id="room-link" class="nav-link" data-bs-toggle="tab" href="#{{ device.type }}_{{ device.id }}_tab">{{ device.name }}</a>
+            <a id="room-link" class="nav-link" data-bs-toggle="tab" href="#{{ device.dev_type }}_{{ device.id }}_tab">{{ device.name }}</a>
         </li>
         {% endfor %}
     </ul>
