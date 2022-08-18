@@ -52,11 +52,7 @@ class Remote_Ir(db.Model):
             return f'<ID: {self.id} Name: {self.name} Type: {self.dev_type} Room ID: {self.room.id}>'
     
     def ir_command(self, device, function):
-        print('function working')
         if device in DEVICES and function in FUNCTIONS:
-            print('device & function good')
-            print(self.ip)
-            print(self.name)
             message = HEADER + REMOTE_MESSAGE_TYPE + DEVICES[device] + FUNCTIONS[function]
             self._send_udp_bytes(message)
 

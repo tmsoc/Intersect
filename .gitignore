@@ -131,3 +131,6 @@ dmypy.json
 
 app.db
 *.db
+
+.vscode
+dev.html
