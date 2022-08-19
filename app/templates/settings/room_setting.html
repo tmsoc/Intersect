@@ -3,98 +3,92 @@
 {% block content %}
 
 <div class="container">
-    <h1>This is the settings page.</h1>
-    <div class="d-flex flex-wrap">
-        {% include 'settings/_sidebar.html' %}
-        <div class="d-flex flex-grow-1">
-            <div class="container-fluid">
-                <form action="{{ url_for('settings.add_room') }}" method="post">
-                    {{ add_form.hidden_tag() }}
-                    <!-- Adding room section -->
-                    <div class="mb-3">
-                        <h3>Add Room</h3>
-                        <hr>
-                        {{ add_form.room_name.label(class='form-label') }} <br>
-                        {{ add_form.room_name(class='form-control', placeholder='Name') }}
-                        {% for error in add_form.room_name.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
-                    </div>
-                    <div class="mb-5">
-                        {{ add_form.add_room_submit(class='btn btn-primary') }}
-                    </div>
-                </form>
-                <!-- Room Details Section -->
-                <div class="mb-3">
-                    <h3>Room Devices</h3>
-                    <hr>
-                    {{ details_list.detail_rooms_list.label(class='form-label') }} <br>
-                    {{ details_list.detail_rooms_list(class='form-select') }}
-                </div>
-                <div class="mb-5">
-                    <div class="card mb-3">
-                        <div class="card-header">Rokus</div>
-                        <div class="card-body">
-                            <dl class="row">
-                                <dt class="col-sm-3">Roku Living Room</dt>
-                                <dd class="col-sm-9">IP: 192.168.1.1</dd>
-                                <dt class="col-sm-3">Roku Living Room</dt>
-                                <dd class="col-sm-9">IP: 192.168.1.1</dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-header">IR Remotes</div>
-                        <div class="card-body">
-                            <dl class="row">
-                                <dt class="col-sm-3">IR Stereo</dt>
-                                <dd class="col-sm-9">IP: 192.168.1.1</dd>
-                                <dt class="col-sm-3">IR TV</dt>
-                                <dd class="col-sm-9">IP: 192.168.1.1</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <!-- Delete Room Section -->
-                <form action="{{ url_for('settings.delete_room') }}" method="post">
-                    {{ delete_form.hidden_tag() }}
-                    <div class="mb-3">
-                        <h3>Delete Room</h3>
-                        <hr>
-                        {{ delete_form.delete_rooms_list.label(class='form-label') }} <br>
-                        {{ delete_form.delete_rooms_list(class='form-select') }}
-                    </div>
-
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-danger mb-5" data-bs-toggle="modal" data-bs-target="#ConfirmModal">
-                        Delete
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="ConfirmModal" tabindex="-1" aria-labelledby="ConfirmModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="ConfirmModalLabel">Confirm Deletion</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Confirm removing selected room from the database.
-                                </div>
-                                <div class="modal-footer">
-                                    {{ delete_form.delete_room_submit(class='btn btn-danger') }}
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+  <h1>Settings</h1>
+  <div class="d-flex flex-wrap">
+    {% include 'settings/_sidebar.html' %}
+    <div class="d-flex flex-grow-1">
+      <div class="container-fluid">
+        <form action="{{ url_for('settings.add_room') }}" method="post">
+          {{ add_form.hidden_tag() }}
+          <!-- Adding room section -->
+          <div class="mb-3">
+            <h3>Add Room</h3>
+            <hr>
+            {{ add_form.room_name.label(class='form-label') }} <br>
+            {{ add_form.room_name(class='form-control', placeholder='Name') }}
+            {% for error in add_form.room_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+          </div>
+          <div class="mb-5">
+            {{ add_form.add_room_submit(class='btn btn-primary') }}
+          </div>
+        </form>
+        <!-- Room Details Section -->
+        <div class="mb-3">
+          <h3>Room Devices</h3>
+          <hr>
+          {{ details_list.detail_rooms_list.label(class='form-label') }} <br>
+          {{ details_list.detail_rooms_list(class='form-select', id='detail_select') }}
         </div>
+        <div class="mb-5">
+          <div class="card mb-3">
+            <div class="card-header">Rokus</div>
+            <div class="card-body">
+              <dl id="roku_list" class="row">
+                <!-- list of attached rokus -->
+              </dl>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">IR Remotes</div>
+            <div class="card-body">
+              <dl id="ir_list" class="row">
+                <!-- list of attached ir remotes -->
+              </dl>
+            </div>
+          </div>
+        </div>
+        <!-- Delete Room Section -->
+        <form action="{{ url_for('settings.delete_room') }}" method="post">
+          {{ delete_form.hidden_tag() }}
+          <div class="mb-3">
+            <h3>Delete Room</h3>
+            <hr>
+            {{ delete_form.delete_rooms_list.label(class='form-label') }} <br>
+            {{ delete_form.delete_rooms_list(class='form-select') }}
+          </div>
+
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-danger mb-5" data-bs-toggle="modal" data-bs-target="#ConfirmModal">
+            Delete
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="ConfirmModal" tabindex="-1" aria-labelledby="ConfirmModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="ConfirmModalLabel">Confirm Deletion</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Confirm removing selected room from the database.
+                </div>
+                <div class="modal-footer">
+                  {{ delete_form.delete_room_submit(class='btn btn-danger') }}
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
+
+<script type=text/javascript src="{{ url_for('static', filename='room_settings.js') }}"></script>
 
 {% endblock %}
