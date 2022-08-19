@@ -35,7 +35,7 @@
           <div class="card mb-3">
             <div class="card-header">Rokus</div>
             <div class="card-body">
-              <dl id="roku_list" class="row">
+              <dl id="roku_list" class="row mb-0">
                 <!-- list of attached rokus -->
               </dl>
             </div>
@@ -43,7 +43,7 @@
           <div class="card mb-3">
             <div class="card-header">IR Remotes</div>
             <div class="card-body">
-              <dl id="ir_list" class="row">
+              <dl id="ir_list" class="row mb-0">
                 <!-- list of attached ir remotes -->
               </dl>
             </div>
@@ -89,6 +89,9 @@
   </div>
 </div>
 
-<script type=text/javascript src="{{ url_for('static', filename='room_settings.js') }}"></script>
+<script>
+  $('#sb-room').addClass('active')
+</script>
+<script type=text/javascript src="{{ url_for('static', filename='settings/room_settings.js') }}"></script>
 
 {% endblock %}

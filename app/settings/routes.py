@@ -1,16 +1,10 @@
-from flask import render_template, url_for, flash, request, jsonify
+from flask import render_template, url_for, flash, request, jsonify, redirect
 from flask_login import login_required
 from app import db
 from app.settings import bp
-from app.settings.forms import AddRoomForm, DeleteRoomForm, RoomDetailsForm
+from app.settings.forms import AddRoomForm, DeleteRoomForm, RoomDetailsForm, AddRokuForm, DeleteRokuForm
 from app.models import Room
 
-
-
-# @bp.route('/settings', methods=['GET', 'POST'])
-# @login_required
-# def settings():
-#     return render_template('settings/settings.html', title='Settings')
 
 
 @bp.route("/settings")
@@ -45,7 +39,6 @@ def add_room():
         rm = Room(name=add_form.room_name.data)
         db.session.add(rm)
         db.session.commit()
-        add_form.room_name.data = ''
         flash(f'{rm.name} added to database')
 
     room_list = [(r.id, r.name) for r in Room.query.all()]
@@ -107,3 +100,11 @@ def query_room_devices():
     }
 
     return jsonify(data)
+
+
+@bp.route('/settings/roku')
+@login_required
+def roku_setting():
+    add_form = AddRokuForm()
+    delete_form = DeleteRokuForm()
+    return render_template('settings/roku_setting.html', title='Roku Settings', add_form=add_form, delete_form=delete_form)

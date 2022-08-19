@@ -1,12 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField
-from wtforms.validators import Length, DataRequired, ValidationError
+from wtforms.validators import Length, DataRequired, ValidationError, IPAddress
 from app.models import Room, Roku, IR
 
 
 class AddRoomForm(FlaskForm):
     room_name = StringField('Room Name:', validators=[Length(min=1, max=149, message='Data Required')])
-    # room_name = StringField('Room Name:')#, validators=[DataRequired()])
     add_room_submit = SubmitField('Add')
 
     def validate_room_name(self, room_name):
@@ -25,3 +24,15 @@ class RoomDetailsForm(FlaskForm):
     detail_rooms_list = SelectField('Rooms:')
 
 
+class AddRokuForm(FlaskForm):
+    new_ip = StringField('IP Address:', validators=[IPAddress()])
+    add_roku_submit = SubmitField('Add')
+
+
+class RokuDetailsForm(FlaskForm):
+    detail_roku_list = SelectField('Rokus:')
+
+
+class DeleteRokuForm(FlaskForm):
+    delete_roku_list = SelectField('Roku:', coerce=int)
+    delete_roku_submit = SubmitField('Confirm')
