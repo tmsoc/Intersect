@@ -6,12 +6,12 @@
   <h1>Settings</h1>
   <div class="d-flex flex-wrap">
     {% include 'settings/_sidebar.html' %}
-    <div class="d-flex flex-grow-1">
+    <div class="flex-grow-1">
       <div class="container-fluid">
         <form action="" method="post">
           {{ add_form.hidden_tag() }}
           <!-- Add Roku Section -->
-          <div class="mb-3">            
+          <div class="mb-3">
             <h3>Add Roku</h3>
             <hr>
             {{ add_form.new_ip.label(class='form-label') }} <br>
@@ -24,11 +24,69 @@
             {{ add_form.add_roku_submit(class='btn btn-primary') }}
           </div>
         </form>
-        <div class="mb-3">
-          <h3>Location</h3>
-          <hr>
-          stuff
-        </div>
+        <!-- Roku asseignment section -->
+        <!-- <form action="#" method="post">
+          <div class="mb-5">
+            {{ assign_form.hidden_tag() }}
+            <h3>Room Assignments</h3>
+            <hr>
+            <div class="d-flex flex-wrap">
+              <div class=" mb-3">
+                {{ assign_form.roku_assign_select(class='form-select', id='roku_select') }}
+              </div>
+              <div class=" mx-2 mb-3">
+                {{ assign_form.room_assign_select(class='form-select', id='room_select') }}
+              </div>
+              <div class=" mb-3">
+                {{ assign_form.assign_roku_submit(class='btn btn-primary') }}
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">Assignments</div>
+              <div class="card-body">
+                <dl class="row mb-0">
+                  {% for a in assignments %}
+                  <dt class="col-sm-4">{{ a.roku }}</dt>
+                  <dd class="col-sm-8">{{ a.room }}</dd>
+                  {% endfor %}
+                </dl>
+              </div>
+            </div>
+          </div>
+        </form> -->
+        <form action="#" method="post">
+          {{ assign_form.hidden_tag() }}
+          <div class="mb-0">
+            <h3>Room Assignments</h3>
+            <hr>
+            <div class="d-flex flex-wrap">
+              <div class="flex-fill mb-3">
+                {{ assign_form.roku_assign_select(class='form-select', id='roku_select') }}
+              </div>
+              <div class="flex-fill mx-2 mb-3">
+                {{ assign_form.room_assign_select(class='form-select', id='room_select') }}
+              </div>
+              <div class=" mb-3">
+                {{ assign_form.assign_roku_submit(class='btn btn-primary') }}
+              </div>
+            </div>
+          </div>
+          <div class="mb-5">
+            <div class="card mb-3">
+              <div class="card-header">Assignments</div>
+              <div class="card-body">
+                <dl class="row mb-0">
+                  {% for a in assignments %}
+                  <dt class="col-sm-3">{{ a.roku }}</dt>
+                  <dd class="col-sm-8">{{ a.room }}</dd>
+                  <!-- <dt class="col-sm-3">Roku </dt>
+                  <dd class="col-sm-8">888</dd> -->
+                  {% endfor %}
+                </dl>
+              </div>
+            </div>
+          </div>
+        </form>
         <!-- Delete Roku Section -->
         <form action="#" method="post">
           {{ delete_form.hidden_tag() }}

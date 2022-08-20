@@ -2,8 +2,9 @@ from flask import render_template, url_for, flash, request, jsonify, redirect
 from flask_login import login_required
 from app import db
 from app.settings import bp
-from app.settings.forms import AddRoomForm, DeleteRoomForm, RoomDetailsForm, AddRokuForm, DeleteRokuForm
-from app.models import Room
+from app.settings.forms import AddRoomForm, DeleteRoomForm, RoomDetailsForm, \
+    AddRokuForm, DeleteRokuForm, RokuAssingmentForm
+from app.models import Room, Roku, IR
 
 
 
@@ -106,5 +107,30 @@ def query_room_devices():
 @login_required
 def roku_setting():
     add_form = AddRokuForm()
+    assign_form = RokuAssingmentForm()
     delete_form = DeleteRokuForm()
-    return render_template('settings/roku_setting.html', title='Roku Settings', add_form=add_form, delete_form=delete_form)
+
+    assingments = []
+    rks = Roku.query.all()
+    for rk in rks:
+        if rk.room == None:
+            assingments.append({'roku': rk.name, 'room': 'Unassigned'})
+        else:
+            assingments.append({'roku': rk.name, 'room': rk.room.name})
+
+    choices = [(0, 'Roku')] + [(r.id, r.name) for r in Roku.query.all()]
+    assign_form.roku_assign_select.choices = choices
+
+    choices = [(0, 'Room Assignment')] + [(r.id, r.name) for r in Room.query.all()]
+    assign_form.room_assign_select.choices = choices
+
+    delete_form.delete_roku_list.choices = [(r.id, r.name) for r in Roku.query.all()]
+
+    return render_template(
+        'settings/roku_setting.html', 
+        title='Roku Settings', 
+        add_form=add_form, 
+        delete_form=delete_form, 
+        assign_form=assign_form,
+        assignments=assingments
+    )

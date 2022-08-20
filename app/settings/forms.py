@@ -29,8 +29,10 @@ class AddRokuForm(FlaskForm):
     add_roku_submit = SubmitField('Add')
 
 
-class RokuDetailsForm(FlaskForm):
-    detail_roku_list = SelectField('Rokus:')
+class RokuAssingmentForm(FlaskForm):
+    roku_assign_select = SelectField('Roku:', coerce=int)
+    room_assign_select = SelectField('Room:', coerce=int)
+    assign_roku_submit = SubmitField('Assign')
 
 
 class DeleteRokuForm(FlaskForm):
