@@ -42,6 +42,7 @@ def add_room():
         db.session.commit()
         flash(f'{rm.name} added to database')
 
+    add_form.room_name.data = ""
     room_list = [(r.id, r.name) for r in Room.query.all()]
     details_list.detail_rooms_list.choices = room_list
     delete_form.delete_rooms_list.choices = room_list
